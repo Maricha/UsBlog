@@ -1,0 +1,23 @@
+type Query {
+  getComments: [Comment]
+  comment(id: ID!): Comment
+}
+
+type Mutation {
+  createComment(createCatInput: CreateCommentInput): Comment
+}
+
+type Subscription {
+  commmentCreated: Comment
+}
+
+type Comment {
+  id: Int
+  authorName: String
+  content: String
+}
+
+input CreateCatInput {
+  authorName: String
+  content: String
+}
