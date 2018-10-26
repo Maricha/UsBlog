@@ -7,18 +7,12 @@ import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { TagsModule } from './tags/tags.module';
 import { CommentsModule } from './comments/comments.module';
-import { join } from 'path';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
-      installSubscriptionHandlers: true,
-      definitions: {
-        path: join(process.cwd(), 'src/graphql.schema.ts'),
-        outputAs: 'class',
-      },
     }),
     UsersModule,
     PostsModule,

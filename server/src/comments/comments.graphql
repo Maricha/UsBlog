@@ -17,7 +17,7 @@ type Comment {
   content: String
 }
 
-input CreateCatInput {
+input CreateCommentInput {
   authorName: String
   content: String
 }
