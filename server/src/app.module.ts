@@ -13,6 +13,8 @@ import { CommentsModule } from './comments/comments.module';
     TypeOrmModule.forRoot(),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
+      debug: true,
+      tracing: true,
     }),
     UsersModule,
     PostsModule,

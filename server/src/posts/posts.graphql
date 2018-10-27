@@ -15,9 +15,12 @@ type Post {
   title: String
   text: String
   comments: [Comment]
+  tags: [Tag]
+  user: User
 }
 
 input CreatePostInput {
   title: String
   text: String
+  tagsId: [Int]
 }

@@ -19,6 +19,7 @@ export class PostsService {
     const post = new Post();
     post.title = postData.title;
     post.text = postData.text;
+    post.tags = postData.tags;
     return await this.postsRepository.save(post);
   }
 }

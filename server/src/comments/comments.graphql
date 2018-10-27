@@ -4,7 +4,7 @@ type Query {
 }
 
 type Mutation {
-  createComment(createCatInput: CreateCommentInput): Comment
+  createComment(createCommentInput: CreateCommentInput): Comment
 }
 
 type Subscription {
