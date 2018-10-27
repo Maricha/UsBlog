@@ -6,6 +6,7 @@ import {
   JoinTable,
   OneToMany,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Tag } from './tags.entity';
 import { Comment } from './comments.entity';
@@ -24,9 +25,10 @@ export class Post {
     text: string;
 
     @OneToMany(type => Comment, comment => comment.post)
+    @JoinColumn()
     comments: Comment[];
 
-    @ManyToMany(type => Tag)
+    @ManyToMany(type => Tag, tag => tag.posts)
     @JoinTable()
     tags: Tag[];
 

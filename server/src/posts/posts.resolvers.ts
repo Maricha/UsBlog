@@ -8,14 +8,19 @@ import {
 } from '@nestjs/graphql';
 
 import { Post } from '../entities/posts.entity';
+import { Tag } from '../entities/tags.entity';
+import { Comment } from '../entities/comments.entity';
+
 import { PostsService } from './posts.service';
 import { CommentsService } from '../comments/comments.service';
+import { TagsService } from '../tags/tags.service';
 
 @Resolver('Post')
 export class PostsResolver {
   constructor(
     private readonly commentsService: CommentsService,
     private readonly postsService: PostsService,
+    private readonly tagsService: TagsService,
   ) {}
 
   @Query('post')
@@ -23,10 +28,21 @@ export class PostsResolver {
     return await this.postsService.findById(id);
   }
 
+  @Query('getPosts')
+  async getPosts() {
+    return await this.postsService.findAll();
+  }
+
   @ResolveProperty('comments')
-  async posts(@Parent() post) {
+  async comments(@Parent() post): Promise<Comment[]> {
     const { id } = post;
     return await this.commentsService.findAllByPostId(id);
+  }
+
+  @ResolveProperty('tags')
+  async tags(@Parent() post): Promise<Tag[]> {
+    const { id } = post;
+    return await this.postsService.findTagsForPost(id);
   }
 
   @Mutation('createPost')

@@ -2,9 +2,11 @@ import {
   Args,
   Query,
   Resolver,
+  Mutation,
 } from '@nestjs/graphql';
 
 import { CommentsService } from './comments.service';
+import { Comment } from '../entities/comments.entity';
 
 @Resolver('Comment')
 export class CommentsResolver {
@@ -13,7 +15,13 @@ export class CommentsResolver {
   ) {}
 
   @Query('comment')
-  async comment(@Args('id') id: number) {
+  async comment(@Args('id') id: number): Promise<Comment> {
     return await this.commentsService.findById(id);
+  }
+
+  @Mutation('createComment')
+  async create(@Args('createCommentInput') args: any): Promise<Comment> {
+    const createdComment = await this.commentsService.create(args);
+    return createdComment;
   }
 }

@@ -16,8 +16,17 @@ export class CommentsService {
   }
 
   async findAllByPostId(postId: number): Promise<Comment[]> {
-    return await this.commentsRepository.find({
-      where: { postId },
+    const x = await this.commentsRepository.find({
+      where: { post: postId },
     });
+    return x;
+  }
+
+  async create(commentData): Promise<Comment> {
+    const comment = new Comment();
+    comment.authorName = commentData.authorName;
+    comment.content = commentData.content;
+    comment.post = commentData.postId;
+    return await this.commentsRepository.save(comment);
   }
 }

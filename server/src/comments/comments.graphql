@@ -18,6 +18,7 @@ type Comment {
 }
 
 input CreateCommentInput {
-  authorName: String
-  content: String
+  authorName: String!
+  content: String!
+  postId: Int!
 }

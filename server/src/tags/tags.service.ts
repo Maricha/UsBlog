@@ -20,4 +20,8 @@ export class TagsService {
     tag.name = tagData.name;
     return await this.tagsRepository.save(tag);
   }
+
+  async findAllByPostId(postId: number): Promise<Tag[]> {
+    return await this.tagsRepository.find({ relations: ['posts'] });
+  }
 }

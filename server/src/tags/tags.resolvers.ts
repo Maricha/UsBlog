@@ -14,7 +14,7 @@ export class TagsResolver {
     private readonly tagsService: TagsService,
   ) {}
 
-  @Query('tags')
+  @Query('getTags')
   async tags() {
     return await this.tagsService.findAll();
   }

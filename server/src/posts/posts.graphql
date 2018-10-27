@@ -1,5 +1,6 @@
 type Query {
   post(id: ID!): Post
+  getPosts: [Post]
 }
 
 type Mutation {
@@ -16,7 +17,6 @@ type Post {
   text: String
   comments: [Comment]
   tags: [Tag]
-  user: User
 }
 
 input CreatePostInput {
