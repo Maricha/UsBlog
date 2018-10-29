@@ -1,8 +1,11 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { Query } from 'react-apollo'
+import gql from 'graphql-tag'
 
 import MainItem from '../components/mainItem';
+import NormalItem from '../components/normalItem';
 
 const styles = theme => ({
   mainStyle: {
@@ -17,33 +20,65 @@ const styles = theme => ({
   },
 });
 
+const POSTS_QUERY = gql`
+  {
+    getPosts {
+      id
+      title
+      text
+    }
+  }
+`
+
 const Home = React.memo((props) => {
   const { classes } = props;
   return (
-    <main className={classes.mainStyle}>
-      <Grid
-          container
-          direction="row"
-          justify="center"
-          align="stretch"
-          spacing={24}
-      >
-        <Grid item md={8}>
-          <MainItem 
-            title="Title of a longer featured blog post"
-            content="Multiple lines of text that form the lede, informing new readers quickly and \
-              efficiently about what&apos;s most interesting in this post&apos;s contents…"
-          />
-        </Grid>
-        <Grid item md>
-          <MainItem
-            right
-            title="Title of a longer featured blog post"
-            content="Multiple lines of text that form the lede, informing new readers quickly and"     
-          />
-        </Grid>
-      </Grid>
-    </main>
+    <Query query={POSTS_QUERY}>
+    {({ loading, error, data }) => {
+      if (loading) return <div>Fetching</div>
+      if (error) return <div>Error</div>
+
+      const posts = data.getPosts;
+      const firstPost = posts.length > 0 ? posts[0] : null;
+      const secondPost = posts.length > 1 ? posts[1] : null;
+    
+      console.log('eloeoe', firstPost);
+      console.log(posts);
+      return (
+        <main className={classes.mainStyle}>
+          <Grid
+              container
+              direction="row"
+              justify="center"
+              align="stretch"
+              spacing={24}
+          >
+          {firstPost && 
+           <Grid item md={8}>
+            <MainItem 
+              item={firstPost}
+            />
+           </Grid>
+          }
+          { secondPost && 
+            <Grid item md>
+              <MainItem
+                item={secondPost}
+              />
+            </Grid>
+          }
+          </Grid>
+          <Grid container spacing={40} className={classes.cardGrid}>  
+            {posts.map(post => (
+              <Grid item key={post.id} xs={12} md={3}>
+                <NormalItem item={post}/>
+              </Grid>
+            ))} 
+          </Grid>
+        </main>
+      )
+    }}
+    </Query>
   )
 });
 
