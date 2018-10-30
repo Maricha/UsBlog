@@ -17,10 +17,12 @@ type Post {
   text: String
   comments: [Comment]
   tags: [Tag]
+  image: String
 }
 
 input CreatePostInput {
   title: String
   text: String
   tagsId: [Int]
+  image: String
 }

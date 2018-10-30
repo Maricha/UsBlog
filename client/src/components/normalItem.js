@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { ClipLoader } from 'react-spinners';
+import ProgressiveImage from 'react-progressive-image';
+import { Link } from 'react-router-dom'
+
 
 const styles = {
   title: {
@@ -31,20 +35,41 @@ const styles = {
   image: {
     display: 'block',
     width: '100%',
-    objectFit: 'contain',
     height: '100%',
+  },
+  imageWrapper: {
+    width: '100%',
+    height: '200px'
   }
 }
+
+const placeholder = (
+  <ClipLoader
+    sizeUnit={"px"}
+    size={150}
+    color={'#123abc'}
+  />
+);
 
 const NormalItem = React.memo((props) => {
   const { classes, item } = props;
   return (
-    <div className={classes.container}>
-      <img src="http://www.shinyshiny.tv/asus-android-smartphone-thumb-200x200.jpg" alt="obrazke" className={classes.image} />
-      <div className={classes.title}>
-        <p>{item.title}</p>
-      </div>
-    </div>
+    <ProgressiveImage src="https://alextheatrestk.com.au/wp-content/uploads/2017/10/400x200.png" placeholder="">
+      {(src, loading) => {
+        return loading ? placeholder : (
+          <Link to={`post/${item.id}`}>
+            <div className={classes.container}>
+              <div className={classes.imageWrapper}>
+                <img src={src} className={classes.image} />
+              </div>
+              <div className={classes.title}>
+                <p>{item.title}</p>
+              </div>
+            </div>
+          </Link>
+        )
+      }}
+    </ProgressiveImage>
   )
 })
 

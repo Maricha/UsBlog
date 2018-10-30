@@ -34,4 +34,7 @@ export class Post {
 
     @ManyToOne(type => User, user => user.posts)
     user: User;
+
+    @Column({ nullable: true })
+    image: string;
 }

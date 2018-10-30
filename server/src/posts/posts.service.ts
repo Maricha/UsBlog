@@ -36,6 +36,7 @@ export class PostsService {
     post.title = postData.title;
     post.text = postData.text;
     post.tags = postData.tags;
+    post.image = postData.image;
 
     const tags = await this.tagsRepository.find({
       id: In(postData.tagsId),

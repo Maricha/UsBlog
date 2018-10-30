@@ -34,7 +34,6 @@ const MainItem = React.memo((props) => {
   const { classes, item } = props;
   const img = 'http://www.shinyshiny.tv/asus-android-smartphone-thumb-200x200.jpg';
 
-  console.log('z aina', item);
   return (
     <Paper className={classes.mainFeaturedPost} style={{backgroundImage: `url(${img})`}}>
       <Grid container
