@@ -54,7 +54,7 @@ const placeholder = (
 const NormalItem = React.memo((props) => {
   const { classes, item } = props;
   return (
-    <ProgressiveImage src="https://alextheatrestk.com.au/wp-content/uploads/2017/10/400x200.png" placeholder="">
+    <ProgressiveImage src={item.image} placeholder="">
       {(src, loading) => {
         return loading ? placeholder : (
           <Link to={`post/${item.id}`}>

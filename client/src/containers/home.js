@@ -6,6 +6,7 @@ import gql from 'graphql-tag'
 
 import MainItem from '../components/mainItem';
 import NormalItem from '../components/normalItem';
+import LoadingSpinner from '../components/loadingSpinner';
 
 const styles = theme => ({
   mainStyle: {
@@ -26,6 +27,7 @@ const POSTS_QUERY = gql`
       id
       title
       text
+      image
     }
   }
 `
@@ -35,17 +37,23 @@ const Home = React.memo((props) => {
   return (
     <Query query={POSTS_QUERY}>
     {({ loading, error, data }) => {
-      if (loading) return <div>Fetching</div>
+      if (loading) return <LoadingSpinner />
       if (error) return <div>Error</div>
 
       const posts = data.getPosts;
-      const firstPost = posts.length > 0 ? posts[0] : null;
-      const secondPost = posts.length > 1 ? posts[1] : null;
-    
-      console.log('eloeoe', firstPost);
-      console.log(posts);
+      let firstPost = null;
+      let secondPost = null;
+      if (posts.length > 0) {
+        firstPost = posts[0];
+        posts.shift();
+        if (posts.length > 0) {
+          secondPost = posts[0];
+          posts.shift();
+        }
+      }
+
       return (
-        <main className={classes.mainStyle}>
+        <div className={classes.mainStyle}>
           <Grid
               container
               direction="row"
@@ -75,7 +83,7 @@ const Home = React.memo((props) => {
               </Grid>
             ))} 
           </Grid>
-        </main>
+        </div>
       )
     }}
     </Query>

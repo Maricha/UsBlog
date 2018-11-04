@@ -1,10 +1,12 @@
 type Query {
   post(id: ID!): Post
   getPosts: [Post]
+  updatePost: [Post]
 }
 
 type Mutation {
   createPost(createPostInput: CreatePostInput): Post
+  updatePost(updatePostInput: UpdatePostInput): Post
 }
 
 type Subscription {
@@ -21,6 +23,14 @@ type Post {
 }
 
 input CreatePostInput {
+  title: String
+  text: String
+  tagsId: [Int]
+  image: String
+}
+
+input UpdatePostInput {
+  id: Int!
   title: String
   text: String
   tagsId: [Int]

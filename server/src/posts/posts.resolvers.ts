@@ -50,4 +50,10 @@ export class PostsResolver {
     const createdPost = await this.postsService.create(args);
     return createdPost;
   }
+
+  @Mutation('updatePost')
+  async updatePost(@Args('updatePostInput') args: any): Promise<Post> {
+    const updatedPost = await this.postsService.update(args);
+    return updatedPost;
+  }
 }

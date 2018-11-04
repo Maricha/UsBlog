@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Toolbar, Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   toolbarMain: {
@@ -14,6 +15,10 @@ const styles = theme => ({
   toolbarSecondary: {
     justifyContent: 'space-between',
   },
+  titleLink: {
+    textDecoration: 'none',
+    color: 'black'
+  }
 });
 
 const Navbar = React.memo((props) => {
@@ -30,7 +35,7 @@ const Navbar = React.memo((props) => {
                 noWrap
                 className={classes.toolbarTitle}
               >
-                {title}
+                <Link to={'/'} className={classes.titleLink}>{title}</Link>
           </Typography>
           <Button size="small">Kontakt</Button>
         </Toolbar>

@@ -6,6 +6,7 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   mainFeaturedPost: {
@@ -17,6 +18,12 @@ const styles = theme => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     position: 'relative',
+    '&:hover': {
+      boxShadow: '5px 10px 18px #888888',
+      '& div': {
+        backgroundColor: 'rgba(0,0,0,0.9)',        
+      }
+    }
   },
   mainFeaturedPostContent: {
     // padding: `${theme.spacing.unit * 6}px`,
@@ -32,24 +39,25 @@ const styles = theme => ({
 
 const MainItem = React.memo((props) => {
   const { classes, item } = props;
-  const img = 'http://www.shinyshiny.tv/asus-android-smartphone-thumb-200x200.jpg';
 
   return (
-    <Paper className={classes.mainFeaturedPost} style={{backgroundImage: `url(${img})`}}>
-      <Grid container
-      >
-        <Grid item md={12}>
-          <div className={classes.mainFeaturedPostContent}>
-            <Typography component="h1" variant="h4" color="inherit" gutterBottom>
-              {item.title}
-            </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-              {item.text}
-            </Typography>
-          </div>
+    <Link to={`post/${item.id}`}> 
+      <Paper className={classes.mainFeaturedPost} style={{backgroundImage: `url(${item.image})`}}>
+        <Grid container
+        >
+          <Grid item md={12}>
+            <div className={classes.mainFeaturedPostContent}>
+              <Typography component="h1" variant="h4" color="inherit" gutterBottom>
+                {item.title}
+              </Typography>
+              <Typography variant="h5" color="inherit" paragraph>
+                {item.text}
+              </Typography>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </Link>
   )
 });
 

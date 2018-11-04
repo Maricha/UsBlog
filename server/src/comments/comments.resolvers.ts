@@ -19,6 +19,11 @@ export class CommentsResolver {
     return await this.commentsService.findById(id);
   }
 
+  @Query('getCommentsForPost')
+  async getComments(@Args('id') id: number): Promise<Comment[]> {
+    return await this.commentsService.findAllByPostId(id);
+  }
+
   @Mutation('createComment')
   async create(@Args('createCommentInput') args: any): Promise<Comment> {
     const createdComment = await this.commentsService.create(args);

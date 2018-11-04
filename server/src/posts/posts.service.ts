@@ -45,4 +45,17 @@ export class PostsService {
     post.tags = tags;
     return await this.postsRepository.save(post);
   }
+
+  async update(postData): Promise<Post> {
+    const post = await this.findById(postData.id);
+    const updated = Object.assign(post, postData);
+
+    if (postData.tagsId) {
+      const tags = await this.tagsRepository.find({
+        id: In(postData.tagsId),
+      });
+      updated.tags = tags;
+    }
+    return await this.postsRepository.save(updated);
+  }
 }
