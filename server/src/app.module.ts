@@ -1,6 +1,15 @@
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
+import {
+  MiddlewareConsumer,
+  Module,
+  HttpServer,
+  Inject,
+  NestModule,
+  OnModuleDestroy,
+  RequestMethod,
+} from '@nestjs/common';
+import { GraphQLModule, GraphQLFactory } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -15,6 +24,7 @@ import { CommentsModule } from './comments/comments.module';
       typePaths: ['./**/*.graphql'],
       debug: true,
       tracing: true,
+      installSubscriptionHandlers: true,
     }),
     UsersModule,
     PostsModule,
@@ -22,6 +32,11 @@ import { CommentsModule } from './comments/comments.module';
     CommentsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+  ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+  ) {}
+}

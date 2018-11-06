@@ -3,10 +3,14 @@ import {
   Query,
   Resolver,
   Mutation,
+  Subscription,
 } from '@nestjs/graphql';
+import { PubSub } from 'graphql-subscriptions';
 
 import { CommentsService } from './comments.service';
 import { Comment } from '../entities/comments.entity';
+
+const pubSub = new PubSub();
 
 @Resolver('Comment')
 export class CommentsResolver {
@@ -27,6 +31,14 @@ export class CommentsResolver {
   @Mutation('createComment')
   async create(@Args('createCommentInput') args: any): Promise<Comment> {
     const createdComment = await this.commentsService.create(args);
+    pubSub.publish('commentAdded', { commentAdded: createdComment });
     return createdComment;
+  }
+
+  @Subscription('commentAdded')
+  commentAdded() {
+    return {
+      subscribe: () => pubSub.asyncIterator('commentAdded'),
+    };
   }
 }

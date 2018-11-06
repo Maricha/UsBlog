@@ -26,23 +26,58 @@ const COMMENTS_QUERY = gql`
   }
 `;
 
+const NEW_COMMENTS_SUBSCRIPTION = gql`
+  subscription {
+    commentAdded {
+      id
+      content
+      authorName
+    }
+  }
+`;
+
+const MessageListView = class extends React.PureComponent {
+  componentDidMount() {
+    this.props.subscribeToMore();
+  }
+  render() {
+    const { data } = this.props;
+    return (
+      <React.Fragment>
+        {data.getCommentsForPost.map(comment => (
+          <Comment comment={comment} key={comment.id} />
+        ))}
+      </React.Fragment>
+    );
+  }
+};
+
+
 class CommentsList extends React.Component {
   render() {
     const { classes, id } = this.props;
     return (
       <Query query={COMMENTS_QUERY} variables={{ id }}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, subscribeToMore }) => {
           if (loading) return <LoadingSpinner />;
           if (error) return `Error!: ${error}`;
           const { getCommentsForPost } = data;
+          const more = () => subscribeToMore({
+            document: NEW_COMMENTS_SUBSCRIPTION,
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) return prev;
+              const { commentAdded } = subscriptionData.data;
+              return Object.assign({}, prev, {
+                getCommentsForPost: [commentAdded, ...prev.getCommentsForPost],
+              });
+            },
+          });
           return (
             <div className={classes.wrapper}>
               <div className={classes.header}>
                 <h2>Komentarze</h2>
               </div>
-              {getCommentsForPost.map(comment => (
-               <Comment comment={comment} key={comment.id} />
-              ))}
+              <MessageListView data={data} subscribeToMore={more} />
             </div>
           );
         }}

@@ -17,7 +17,7 @@ const styles = theme => ({
   },
   commentContent: {
     padding: '10px',
-    flex: '4 auto',
+    flex: '4',
     textAlign: 'left'
   }
 });

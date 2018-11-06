@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import LoadingSpinner from '../components/loadingSpinner';
 import CommentsList from '../components/commentsList';
+import CommentForm from '../forms/comment.form';
 
 const styles = theme => ({
   wrapperHeader: {
@@ -59,6 +60,7 @@ class PostDetails extends React.Component {
               {post.text}
             </div>
             <CommentsList id={id} />
+            <CommentForm postId={id}/>
           </div>
         );
       }}
