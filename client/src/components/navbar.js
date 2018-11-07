@@ -13,11 +13,15 @@ const styles = theme => ({
     flex: 1,
   },
   toolbarSecondary: {
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
   },
   titleLink: {
     textDecoration: 'none',
     color: 'black'
+  },
+  link: {
+    color: 'inherit',
+    textDecoration: 'none',
   }
 });
 
@@ -42,9 +46,21 @@ const Navbar = React.memo((props) => {
       </div>
       <div style={{height: 7 + '%'}}>
         <Toolbar variant="dense" className={classes.toolbarSecondary}>
-          <Typography color="inherit" noWrap>
-            "elo"
-          </Typography>
+          <Link to={"/sience"} className={classes.link}>
+            <Typography color="inherit" noWrap>
+              Nauka
+            </Typography>
+          </Link>
+          <Link to={"/technology"} className={classes.link}>
+            <Typography color="inherit" noWrap>
+              Technologia
+            </Typography>
+          </Link>
+          <Link to={"/entertainment"} className={classes.link}>
+            <Typography color="inherit" noWrap>
+              Rozrywka
+            </Typography>
+          </Link>
         </Toolbar>
       </div>
     </React.Fragment>

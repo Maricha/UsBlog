@@ -20,7 +20,6 @@ export class PostsResolver {
   constructor(
     private readonly commentsService: CommentsService,
     private readonly postsService: PostsService,
-    private readonly tagsService: TagsService,
   ) {}
 
   @Query('post')
@@ -31,6 +30,11 @@ export class PostsResolver {
   @Query('getPosts')
   async getPosts() {
     return await this.postsService.findAll();
+  }
+
+  @Query('getPostsByTag')
+  async getPostsByTag(@Args('tag') tag: string) {
+    return await this.postsService.findAllByTag(tag);
   }
 
   @ResolveProperty('comments')

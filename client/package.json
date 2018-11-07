@@ -13,6 +13,7 @@
     "react-addons-css-transition-group": "^15.6.2",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.6.0",
+    "react-markdown": "^4.0.3",
     "react-progressive-image": "^0.6.0",
     "react-recaptcha": "^2.3.10",
     "react-router-dom": "^4.3.1",

@@ -13,13 +13,26 @@ export class PostsService {
     @InjectRepository(Tag)
     private readonly tagsRepository: Repository<Tag>,
   ) {}
-
   async findById(id: number): Promise<Post> {
     return await this.postsRepository.findOne(id);
   }
 
+  async findAllByTag(tag: string): Promise<Post[]> {
+    const posts = await this.postsRepository
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.tags', 'tag')
+    .where('tag.name = :value', { value: tag })
+    .cache(true)
+    .getMany();
+    return posts;
+  }
+
   async findAll(): Promise<Post[]> {
-    return await this.postsRepository.find();
+    return await this.postsRepository.find({
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 
   async findTagsForPost(id: number): Promise<Tag[]> {
@@ -37,6 +50,7 @@ export class PostsService {
     post.text = postData.text;
     post.tags = postData.tags;
     post.image = postData.image;
+    post.subtitle = postData.subtitle;
 
     const tags = await this.tagsRepository.find({
       id: In(postData.tagsId),

@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { ClipLoader } from 'react-spinners';
 import ProgressiveImage from 'react-progressive-image';
 import { Link } from 'react-router-dom'
 
+import { limitText } from '../helpers/helpers';
 
 const styles = {
   title: {
@@ -19,7 +19,13 @@ const styles = {
     '& p': {
       padding: '5px',
       marginTop: '5px',
+      marginBottom: '2px',
     },
+  },
+  subtitle: {
+    padding: 0,
+    margin: 0,
+    fontSize: '15px',
   },
   container: {
     position: 'relative',
@@ -64,6 +70,7 @@ const NormalItem = React.memo((props) => {
               </div>
               <div className={classes.title}>
                 <p>{item.title}</p>
+                <p className={classes.subtitle}>{limitText(item.subtitle, 20)}</p>
               </div>
             </div>
           </Link>

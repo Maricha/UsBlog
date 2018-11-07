@@ -1,6 +1,7 @@
 type Query {
   post(id: ID!): Post
   getPosts: [Post]
+  getPostsByTag(tag: String!): [Post] 
   updatePost: [Post]
 }
 
@@ -16,6 +17,7 @@ type Subscription {
 type Post {
   id: Int
   title: String
+  subtitle: String
   text: String
   comments: [Comment]
   tags: [Tag]
@@ -25,6 +27,7 @@ type Post {
 input CreatePostInput {
   title: String
   text: String
+  subtitle: String
   tagsId: [Int]
   image: String
 }
@@ -32,6 +35,7 @@ input CreatePostInput {
 input UpdatePostInput {
   id: Int!
   title: String
+  subtitle: String
   text: String
   tagsId: [Int]
   image: String

@@ -8,6 +8,8 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 
+import { limitText } from '../helpers/helpers';
+
 const styles = theme => ({
   mainFeaturedPost: {
     backgroundColor: theme.palette.grey[800],
@@ -31,10 +33,17 @@ const styles = theme => ({
       paddingRight: 0,
     },
     backgroundColor: 'rgba(0,0,0,0.3)',
-    marginTop: '10%',
+    marginTop: '50px',
     position: 'absolute',
     width: '100%',
   },
+  typo: {
+    paddingTop: '10px',
+    paddingLeft: '10px',
+  },
+  subTypo: {
+    paddingLeft: '10px'
+  }
 });
 
 const MainItem = React.memo((props) => {
@@ -47,11 +56,11 @@ const MainItem = React.memo((props) => {
         >
           <Grid item md={12}>
             <div className={classes.mainFeaturedPostContent}>
-              <Typography component="h1" variant="h4" color="inherit" gutterBottom>
+              <Typography component="h1" variant="h4" color="inherit" gutterBottom className={classes.typo}>
                 {item.title}
               </Typography>
-              <Typography variant="h5" color="inherit" paragraph>
-                {item.text}
+              <Typography variant="h5" color="inherit" paragraph className={classes.subTypo}>
+                {limitText(item.subtitle, 50)}
               </Typography>
             </div>
           </Grid>

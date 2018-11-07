@@ -2,6 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 
 import LoadingSpinner from '../components/loadingSpinner';
 import Comment from '../components/comment';
@@ -41,13 +42,23 @@ const MessageListView = class extends React.PureComponent {
     this.props.subscribeToMore();
   }
   render() {
-    const { data } = this.props;
+    const { data: { getCommentsForPost } } = this.props;
+    let content;
+    if (getCommentsForPost.length > 0) {
+      content = <>
+                  {getCommentsForPost.map(comment => (
+                    
+                      <Comment comment={comment} key={comment.id} />
+                  
+                  ))}
+                </>
+   
+    } else {
+      content = <p>Brak komentarzy. Bądź pierwszy!</p>
+    }
+
     return (
-      <React.Fragment>
-        {data.getCommentsForPost.map(comment => (
-          <Comment comment={comment} key={comment.id} />
-        ))}
-      </React.Fragment>
+      content
     );
   }
 };

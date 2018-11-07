@@ -7,6 +7,7 @@ import {
   OneToMany,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { Tag } from './tags.entity';
 import { Comment } from './comments.entity';
@@ -20,6 +21,9 @@ export class Post {
 
     @Column()
     title: string;
+
+    @Column({ nullable: true })
+    subtitle: string;
 
     @Column()
     text: string;
@@ -37,4 +41,7 @@ export class Post {
 
     @Column({ nullable: true })
     image: string;
+
+    @CreateDateColumn({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+    createdAt: Date;
 }

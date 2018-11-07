@@ -2,25 +2,34 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 
-import Home from '../containers/home';
+import HomeContainer from '../containers/home.container';
+import CategoryContainer from '../containers/category.container';
 import PostDetails from '../containers/postDetails';
 
-const styles = {
+const styles = theme => ({
   wrapper: {
-    width: '1100px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    minHeight: '75%'
+    height: 'auto',
+    minHeight: '100vh',
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
+      width: 1100,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   }
-}
+})
 
 const Main = (props) => {
   const { classes } = props;
   return (
     <main className={classes.wrapper}>
       <Switch>
-        <Route exact path='/' component={Home}/>
+        <Route exact path='/' component={HomeContainer}/>
         <Route exact path='/post/:id' component={PostDetails} />
+        <Route exact path='/technology' component={() => <CategoryContainer tag="Technologia" />} />
+        <Route exact path='/sience' component={() => <CategoryContainer tag="Nauka" />} />
+        <Route exact path='/entertainment' component={() => <CategoryContainer tag="Rozrywka" />} />
       </Switch>
     </main>
   )
