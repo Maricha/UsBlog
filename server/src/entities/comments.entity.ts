@@ -3,6 +3,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   ManyToOne,
+  CreateDateColumn,
 } from 'typeorm';
 
 import { Post } from './posts.entity';
@@ -21,4 +22,7 @@ export class Comment {
 
     @ManyToOne(type => Post, post => post.comments)
     post: Post;
+
+    @CreateDateColumn({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+    createdAt: Date;
 }

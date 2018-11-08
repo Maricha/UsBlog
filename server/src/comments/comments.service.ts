@@ -18,6 +18,9 @@ export class CommentsService {
   async findAllByPostId(postId: number): Promise<Comment[]> {
     const commentsPerPost = await this.commentsRepository.find({
       where: { post: postId },
+      order: {
+        createdAt: 'DESC',
+      },
     });
     return commentsPerPost;
   }

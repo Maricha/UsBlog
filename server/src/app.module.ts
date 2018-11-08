@@ -1,14 +1,10 @@
 import {
-  MiddlewareConsumer,
   Module,
-  HttpServer,
-  Inject,
-  NestModule,
-  OnModuleDestroy,
-  RequestMethod,
 } from '@nestjs/common';
-import { GraphQLModule, GraphQLFactory } from '@nestjs/graphql';
+import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MailerModule } from '@nest-modules/mailer';
+import { ConfigModule } from 'nestjs-config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -16,6 +12,7 @@ import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { TagsModule } from './tags/tags.module';
 import { CommentsModule } from './comments/comments.module';
+import { ContactModule } from './contact/contact.module';
 
 @Module({
   imports: [
@@ -30,6 +27,9 @@ import { CommentsModule } from './comments/comments.module';
     PostsModule,
     TagsModule,
     CommentsModule,
+    ContactModule,
+    MailerModule.forRoot(),
+    ConfigModule.load(),
   ],
   controllers: [AppController],
   providers: [

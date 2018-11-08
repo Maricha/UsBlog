@@ -12,19 +12,20 @@ const styles = theme => ({
   commentAuthor: {
     padding: '10px',
     flex: '1',
-    borderRight: '1px solid black',
+    fontWeight: 'bold'
   },
   commentContent: {
     padding: '10px',
-    flex: '4',
+    paddingTop: '0',
+    flex: '1',
     textAlign: 'left',
     fontWeight: 'normal'
   },
   commentWrapper: {
-    borderRadius: '50px',
     boxShadow: '-1px -1px 39px -4px rgba(0,0,0,0.75)',
-    backgroundColor: 'grey',
-    margin: '2%',
+    backgroundColor: 'white',
+    marginLeft: '0',
+    borderRadius: '5px',
   }
 });
 
@@ -33,16 +34,16 @@ const Comment = React.memo((props) => {
   return (
     <Grid  
       container
-      direction="row"
+      direction="column"
       className={classes.commentWrapper}
     >
-      <Grid item xs={12} md={3}>
-        <div className={classes.commentAuthor}>{comment.authorName}</div>
-      </Grid>
-      <Grid item xs={12} md>
-        <div className={classes.commentContent}>{comment.content}</div>
-      </Grid>
-    </Grid>
+     <Grid item xs={12} md>
+       <div className={classes.commentAuthor}>{comment.authorName}</div>
+     </Grid>
+     <Grid item xs={12} md>
+      <div className={classes.commentContent}>{comment.content}</div>
+     </Grid>
+   </Grid>
   )
 });
 

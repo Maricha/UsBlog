@@ -23,6 +23,7 @@ export class PostsService {
     .leftJoinAndSelect('post.tags', 'tag')
     .where('tag.name = :value', { value: tag })
     .cache(true)
+    .orderBy('post.createdAt', 'DESC')
     .getMany();
     return posts;
   }

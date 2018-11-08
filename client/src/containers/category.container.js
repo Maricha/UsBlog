@@ -23,7 +23,7 @@ const POSTS_QUERY = gql`
 const CategoryContainer = (props) => {
   const { tag } = props;
   return (
-    <Query query={POSTS_QUERY} variables={{ tag }}>
+    <Query query={POSTS_QUERY} variables={{ tag }} fetchPolicy="cache-and-network">
     {({ loading, error, data }) => {
       if (loading) return <LoadingSpinner />
       if (error) return <div>Error</div>

@@ -7,9 +7,8 @@ import { Grid } from '@material-ui/core';
 import LoadingSpinner from '../components/loadingSpinner';
 import Comment from '../components/comment';
 
-const styles = theme => ({
+const styles = ({
   wrapper: {
-    boxShadow: '5px 5px 5px #888888',
     padding: '20px'
   },
   header: {
@@ -47,9 +46,9 @@ const MessageListView = class extends React.PureComponent {
     if (getCommentsForPost.length > 0) {
       content = <>
                   {getCommentsForPost.map(comment => (
-                    
+                    <Grid item key={comment.id}>
                       <Comment comment={comment} key={comment.id} />
-                  
+                    </Grid>
                   ))}
                 </>
    
@@ -88,7 +87,9 @@ class CommentsList extends React.Component {
               <div className={classes.header}>
                 <h2>Komentarze</h2>
               </div>
-              <MessageListView data={data} subscribeToMore={more} />
+              <Grid container direction="column" spacing={24}>
+                <MessageListView data={data} subscribeToMore={more} />
+              </Grid>
             </div>
           );
         }}

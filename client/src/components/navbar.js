@@ -41,7 +41,11 @@ const Navbar = React.memo((props) => {
               >
                 <Link to={'/'} className={classes.titleLink}>{title}</Link>
           </Typography>
-          <Button size="small">Kontakt</Button>
+          <Link to={"/contact"} className={classes.link}>
+            <Button size="small">
+              Kontakt
+            </Button>
+          </Link>
         </Toolbar>
       </div>
       <div style={{height: 7 + '%'}}>

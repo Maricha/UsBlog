@@ -20,6 +20,7 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
+    "@nest-modules/mailer": "^0.4.1",
     "@nestjs/common": "^5.1.0",
     "@nestjs/core": "^5.1.0",
     "@nestjs/graphql": "^5.4.0",
@@ -29,6 +30,7 @@
     "graphql": "^14.0.2",
     "graphql-subscriptions": "^1.0.0",
     "graphql-tools": "^4.0.3",
+    "nestjs-config": "^1.2.7",
     "pg": "^7.6.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",

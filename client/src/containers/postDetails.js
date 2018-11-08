@@ -77,6 +77,7 @@ class PostDetails extends React.Component {
           <Grid  
             container
             direction="column"
+            spacing={16}
           >
             <Grid item xs={12} md={12}>
               <div className={classes.wrapperHeader} style={{backgroundImage: `url(${post.image})`}}>

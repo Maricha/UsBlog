@@ -1,0 +1,17 @@
+type Mutation {
+  sendEmail(sendContactInput: SendContactInput): Boolean
+}
+
+type Contact {
+  senderEmail: String!
+  name: String!
+  title: String!
+  content: String!
+}
+
+input SendContactInput {
+  senderEmail: String!
+  name: String!
+  title: String!
+  content: String!
+}
