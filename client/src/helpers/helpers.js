@@ -1,5 +1,5 @@
 function limitText(text, count){
-  return text.slice(0, count) + (text.length > count ? "..." : "");
+  return text && text.slice(0, count) + (text.length > count ? "..." : "");
 };
 
 
