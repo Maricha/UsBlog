@@ -21,7 +21,7 @@ const styles = theme => ({
 const BlogLayout = ({ children, classes, ...rest }) => {
   return (
     <div>
-      <Navbar title="moj blog" />
+      <Navbar title="moj blog" toolbar mainUrl="/" contact />
       <main className={classes.wrapper}>{children}</main>
       <Footer />
     </div>

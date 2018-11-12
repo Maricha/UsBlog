@@ -1,14 +1,8 @@
 import React from 'react';
-import { Form, Field, withFormik } from "formik";
-import { TextField } from "material-ui-formik-components";
-import * as Yup from 'yup';
-import gql from 'graphql-tag';
-import { compose, graphql } from 'react-apollo';
+import { Form, Field } from "formik";
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Grid } from '@material-ui/core';
-import { EditorState } from 'draft-js';
+import { Button, Grid, TextField } from '@material-ui/core';
 import { RichEditorExample } from '../helpers/RichEditor';
-import { convertToHTML } from 'draft-convert';
 
 import './rich-editor.css';
 
@@ -19,23 +13,15 @@ const styles = {
   }
 }
 
-const sendEmail = gql`
-  mutation($name: String!, $senderEmail: String!, $content: String!, $title: String!) {
-    sendEmail(
-      sendContactInput: {name: $name, content: $content, title: $title, senderEmail: $senderEmail}
-    )
-  }
-`;
-
 const PostForm = ({
   values,
-  errors,
-  touched,
   classes,
   isSubmitting,
   setFieldValue,
   handleBlur,
+  handleChange,
 }) => {
+  console.log(values)
   return (
     <Form className={classes.formWrapper}>
       <Grid  
@@ -44,42 +30,52 @@ const PostForm = ({
         spacing={16}
       >
         <Grid item xs={12} md={12}>
-          <Field 
-            name="name"
-            label="Imie i nazwisko"
-            value={values.name}
-            component={TextField} />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <Field 
-            name="title"
-            label="Tytuł"
-            value={values.title}
-            component={TextField} />
+          <RichEditorExample
+            editorState={values.editorState}
+            onChange={setFieldValue}
+            onBlur={handleBlur}
+          />
         </Grid>
         <Grid item xs={12} md={12}>
           <Field
-            type="email"
-            name="email" 
-            label="Email"
+            id="image"
+            name="image" 
+            label="Url obrazka"
             component={TextField}
-            value={values.email}
+            value={values.image}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12} md={12}>
-          <Field 
-            name="content" 
-            label="Tresc"
+          <Field
+            id="title"
+            name="title" 
+            label="Tytul"
             component={TextField}
-            value={values.content}
-            multiline
+            value={values.title}
+            onChange={handleChange}
           />
         </Grid>
-        <RichEditorExample
-          editorState={values.editorState}
-          onChange={setFieldValue}
-          onBlur={handleBlur}
-        />
+        <Grid item xs={12} md={12}>
+          <Field
+            id="subtitle"
+            name="subtitle" 
+            label="Podtytul"
+            component={TextField}
+            value={values.subtitle}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <Field
+            id="tags"
+            name="tags" 
+            label="Tagi"
+            component={TextField}
+            value={values.tags}
+            onChange={handleChange}
+          />
+        </Grid>
         <Grid item xs={12} md={12}>
           <div>
             <Button type="submit" variant="outlined" className={classes.button}>
@@ -91,36 +87,4 @@ const PostForm = ({
     </Form>
   )
 };
-
-export default compose(
-  withStyles(styles),
-  graphql(sendEmail),
-  withFormik({
-    mapPropsToValues: () => ({ 
-      name: '',
-      email: '',
-      content: '',
-      title: '',
-      editorState: new EditorState.createEmpty(),
-    }),
-    validationSchema: Yup.object().shape({
-      // name: Yup.string().required(),
-      // content: Yup.string().required(),
-      // email: Yup.string().required(),
-      // title: Yup.string().required(),
-    }),
-    handleSubmit: async (values, { props: { mutate }, resetForm }) => {
-      console.log(JSON.stringify(values, null, 2));
-      console.log(convertToHTML(values.editorState.getCurrentContent()));
-      // await mutate({
-      //   variables: { 
-      //     content: values.content,
-      //     name: values.name,
-      //     title: values.title,  
-      //     senderEmail: values.email,
-      //   },
-      // });
-      resetForm();
-    },
-  }),
-)(PostForm);
+export default withStyles(styles)(PostForm);

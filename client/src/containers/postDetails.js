@@ -3,7 +3,7 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Grid } from '@material-ui/core';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 
 import LoadingSpinner from '../components/loadingSpinner';
 import CommentsList from '../components/commentsList';
@@ -87,7 +87,7 @@ class PostDetails extends React.Component {
             
             <Grid item xs={12} md={12}>
               <div className={classes.content}>
-                <ReactMarkdown source={post.text}/>
+                <ReactMarkdown source={post.text} escapeHtml={false}/>
               </div>
             </Grid>
             <Grid item xs={12} md={12}>

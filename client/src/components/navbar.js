@@ -26,7 +26,13 @@ const styles = theme => ({
 });
 
 const Navbar = React.memo((props) => {
-  const { title, classes } = props;
+  const { 
+    title,
+    classes,
+    toolbar,
+    mainUrl,
+    contact,
+  } = props;
   return (
     <React.Fragment>
       <div style={{height: 10 + '%'}}>
@@ -39,16 +45,16 @@ const Navbar = React.memo((props) => {
                 noWrap
                 className={classes.toolbarTitle}
               >
-                <Link to={'/'} className={classes.titleLink}>{title}</Link>
+                <Link to={mainUrl} className={classes.titleLink}>{title}</Link>
           </Typography>
-          <Link to={"/contact"} className={classes.link}>
+          {contact && <Link to={"/contact"} className={classes.link}>
             <Button size="small">
               Kontakt
             </Button>
-          </Link>
+          </Link>}
         </Toolbar>
       </div>
-      <div style={{height: 7 + '%'}}>
+      {toolbar && <div style={{height: 7 + '%'}}>
         <Toolbar variant="dense" className={classes.toolbarSecondary}>
           <Link to={"/sience"} className={classes.link}>
             <Typography color="inherit" noWrap>
@@ -66,7 +72,7 @@ const Navbar = React.memo((props) => {
             </Typography>
           </Link>
         </Toolbar>
-      </div>
+      </div>}
     </React.Fragment>
   )
 });
