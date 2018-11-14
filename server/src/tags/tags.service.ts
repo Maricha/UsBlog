@@ -12,12 +12,17 @@ export class TagsService {
   ) {}
 
   async findAll(): Promise<Tag[]> {
-    return await this.tagsRepository.find();
+    const tags = await this.tagsRepository
+    .createQueryBuilder('tag')
+    .cache(true)
+    .getMany();
+    return tags;
   }
 
   async create(tagData): Promise<Tag> {
     const tag = new Tag();
-    tag.name = tagData.name;
+    tag.value = tagData.value;
+    tag.label = tagData.label;
     return await this.tagsRepository.save(tag);
   }
 

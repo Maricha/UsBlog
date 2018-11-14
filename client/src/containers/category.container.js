@@ -14,7 +14,8 @@ const POSTS_QUERY = gql`
       image
       subtitle
       tags {
-        name
+        value,
+        label
       }
     }
   }

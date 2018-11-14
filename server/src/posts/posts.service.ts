@@ -21,7 +21,7 @@ export class PostsService {
     const posts = await this.postsRepository
     .createQueryBuilder('post')
     .leftJoinAndSelect('post.tags', 'tag')
-    .where('tag.name = :value', { value: tag })
+    .where('tag.value = :value', { value: tag })
     .cache(true)
     .orderBy('post.createdAt', 'DESC')
     .getMany();

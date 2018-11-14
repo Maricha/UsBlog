@@ -9,9 +9,16 @@ import PostEditForm from '../../forms/postEdit.form';
 const POST_QUERY = gql`
   query Post($id: ID!) {
     post(id: $id) {
+      id,
       title,
       text,
-      image
+      image,
+      subtitle,
+      tags {
+        value,
+        label,
+        id
+      }
     }
   }
 `;

@@ -8,9 +8,10 @@ type Mutation {
 
 type Tag {
   id: Int
-  name: String
+  value: String
+  label: String
 }
 
 input CreateTagInput {
-  name: String
+  value: String
 }

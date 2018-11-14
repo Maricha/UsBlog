@@ -11,7 +11,8 @@ import { Post } from '../entities/posts.entity';
 export class Tag {
   @PrimaryGeneratedColumn() id: number;
 
-  @Column()  name: string;
+  @Column()  value: string;
+  @Column({nullable: true})  label: string;
 
   @ManyToMany(type => Post, post => post.tags)
   posts: Post[];

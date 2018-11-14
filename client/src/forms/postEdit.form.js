@@ -8,11 +8,24 @@ import gql from 'graphql-tag';
 
 import PostForm from './post.form';
 
-const sendEmail = gql`
-  mutation($name: String!, $senderEmail: String!, $content: String!, $title: String!) {
-    sendEmail(
-      sendContactInput: {name: $name, content: $content, title: $title, senderEmail: $senderEmail}
-    )
+const editPost = gql`
+  mutation($title: String!, $subtitle: String!, $content: String!, $image: String!, $tags: [Int], $id: Int!) {
+    updatePost(
+      updatePostInput: {title: $title, subtitle: $subtitle, text: $content, image: $image, tagsId: $tags, id: $id} 
+    ) {
+      title,
+      subtitle
+    }
+  }
+`;
+
+const getTags = gql`
+  query {
+    getTags {
+      value,
+      id,
+      label
+    }
   }
 `;
 
@@ -20,32 +33,39 @@ const PostEditForm = props => (
   <PostForm {...props} />
 );
 
-
 const EnhancedEditPostForm = compose(
-  graphql(sendEmail),
+  graphql(editPost),
+  graphql(getTags),
   withFormik({
     mapPropsToValues: (props) => {
       const { post } = props;
       const blocksFromHTML = convertFromHTML(post.text);
-      console.log(props);
       return {
         editorState: new EditorState.createWithContent(blocksFromHTML),
+        tags: post.tags,
+        title: post.title,
+        subtitle: post.subtitle,
+        image: post.image,
+        id: post.id,
       }
     },
     validationSchema: Yup.object().shape({
       editorState: Yup.object().required(),
     }),
     handleSubmit: async (values, { props: { mutate }, resetForm }) => {
-      console.log(JSON.stringify(values, null, 2));
-      console.log(convertToHTML(values.editorState.getCurrentContent()));
-      // await mutate({
-      //   variables: { 
-      //     content: values.content,
-      //     name: values.name,
-      //     title: values.title,  
-      //     senderEmail: values.email,
-      //   },
-      // });
+      console.log('elo', values);
+      const content = convertToHTML(values.editorState.getCurrentContent());
+      const tagsId = await values.tags.map(tag => Number(tag.id));
+      await mutate({
+        variables: { 
+          content,
+          title: values.title,
+          subtitle: values.subtitle,  
+          tags: tagsId,
+          image: values.image,
+          id: values.id,
+        },
+      });
       resetForm();
     },
     displayName: 'PostEditForm',
