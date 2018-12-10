@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router";
 import { withFormik } from 'formik';
 import { compose, graphql } from 'react-apollo';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
@@ -52,20 +53,26 @@ const EnhancedEditPostForm = compose(
     validationSchema: Yup.object().shape({
       editorState: Yup.object().required(),
     }),
-    handleSubmit: async (values, { props: { mutate }, resetForm }) => {
-      console.log('elo', values);
+    handleSubmit: async (values, { props: { mutate, history }, resetForm, setSubmitting }) => {
       const content = convertToHTML(values.editorState.getCurrentContent());
       const tagsId = await values.tags.map(tag => Number(tag.id));
-      await mutate({
-        variables: { 
-          content,
-          title: values.title,
-          subtitle: values.subtitle,  
-          tags: tagsId,
-          image: values.image,
-          id: values.id,
-        },
-      });
+      try {
+        await mutate({
+          variables: { 
+            content,
+            title: values.title,
+            subtitle: values.subtitle,  
+            tags: tagsId,
+            image: values.image,
+            id: values.id,
+          },
+        })
+        history.push(`/admin`)
+      } catch (e) {
+        const errors = e.graphQLErrors.map(error => error.message)
+        console.log(errors)
+        setSubmitting(false)
+      }
       resetForm();
     },
     displayName: 'PostEditForm',
@@ -73,4 +80,4 @@ const EnhancedEditPostForm = compose(
 );
 
 
-export default EnhancedEditPostForm(PostEditForm);
+export default withRouter(EnhancedEditPostForm(PostEditForm));

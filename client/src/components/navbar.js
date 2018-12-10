@@ -25,6 +25,11 @@ const styles = theme => ({
   }
 });
 
+const logout = () => {
+  localStorage.removeItem('auth')
+  window.location = 'http://localhost:3000';
+};
+
 const Navbar = React.memo((props) => {
   const { 
     title,
@@ -32,6 +37,7 @@ const Navbar = React.memo((props) => {
     toolbar,
     mainUrl,
     contact,
+    adminLogout,
   } = props;
   return (
     <React.Fragment>
@@ -52,6 +58,7 @@ const Navbar = React.memo((props) => {
               Kontakt
             </Button>
           </Link>}
+          {adminLogout && <Button size="small" onClick={logout}>Wyloguj</Button>}
         </Toolbar>
       </div>
       {toolbar && <div style={{height: 7 + '%'}}>

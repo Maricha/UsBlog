@@ -37,11 +37,11 @@ export class PostsService {
   }
 
   async findTagsForPost(id: number): Promise<Tag[]> {
-    const x = await this.postsRepository.find({
+    const postList = await this.postsRepository.find({
       relations: ['tags'],
       where: {id},
     });
-    const tags = x[0].tags;
+    const tags = postList[0].tags;
     return tags;
   }
 
@@ -72,5 +72,13 @@ export class PostsService {
       updated.tags = tags;
     }
     return await this.postsRepository.save(updated);
+  }
+
+  async destroy(id: string) {
+    const post = await this.postsRepository.findOne({
+      where: { id },
+    });
+    await this.postsRepository.remove(post);
+    return post;
   }
 }

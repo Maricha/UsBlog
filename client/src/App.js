@@ -10,6 +10,7 @@ import {
   AdmPostsListContainer,
   PostCreateContainer,
   PostEditContainer,
+  LoginContainer,
 } from './containers/admin';
 
 import BlogRoute from './common/blogRoute';
@@ -26,9 +27,10 @@ class App extends Component {
         <BlogRoute exact path='/sience' component={() => <CategoryContainer tag="Nauka" />} />
         <BlogRoute exact path='/entertainment' component={() => <CategoryContainer tag="Rozrywka" />} />
         <BlogRoute exact path='/contact' component={ContactContainer} />
-        <AdminRoute exact path='/admin/create' component={PostCreateContainer} />
-        <AdminRoute exact path='/admin' component={AdmPostsListContainer} />
-        <AdminRoute exact path='/admin/:id/edit' component={PostEditContainer} />
+        <AdminRoute exact path='/admin/create' component={PostCreateContainer} guard />
+        <AdminRoute exact path='/admin' component={AdmPostsListContainer} guard />
+        <AdminRoute exact path='/admin/:id/edit' component={PostEditContainer} guard />
+        <AdminRoute exact path='/admin/login' component={LoginContainer} />
       </Switch>
     </Router>
     );

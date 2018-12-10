@@ -20,7 +20,7 @@ const styles = theme => ({
 const AdminLayout = ({ children, classes, ...rest }) => {
   return (
     <div>
-      <Navbar title="moj admin" mainUrl="/admin" />
+      <Navbar title="moj admin" mainUrl="/admin" adminLogout />
       <main className={classes.wrapper}>{children}</main>
     </div>
   )

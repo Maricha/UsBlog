@@ -11,9 +11,20 @@ import { BrowserRouter } from 'react-router-dom'
 import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
+import { setContext } from 'apollo-link-context'
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql'
+})
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('auth')
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  }
 })
 
 const wsLink = new WebSocketLink({
@@ -29,7 +40,7 @@ const link = split(
     return kind === 'OperationDefinition' && operation === 'subscription'
   },
   wsLink,
-  httpLink
+  authLink.concat(httpLink),
 )
 
 const client = new ApolloClient({

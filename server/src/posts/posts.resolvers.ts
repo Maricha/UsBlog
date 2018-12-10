@@ -6,6 +6,7 @@ import {
   ResolveProperty,
   Mutation,
 } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 
 import { Post } from '../entities/posts.entity';
 import { Tag } from '../entities/tags.entity';
@@ -14,6 +15,7 @@ import { Comment } from '../entities/comments.entity';
 import { PostsService } from './posts.service';
 import { CommentsService } from '../comments/comments.service';
 import { TagsService } from '../tags/tags.service';
+import { AuthGuard } from '../shared/auth.guard';
 
 @Resolver('Post')
 export class PostsResolver {
@@ -50,14 +52,22 @@ export class PostsResolver {
   }
 
   @Mutation('createPost')
+  @UseGuards(new AuthGuard())
   async createPost(@Args('createPostInput') args: any): Promise<Post> {
     const createdPost = await this.postsService.create(args);
     return createdPost;
   }
 
   @Mutation('updatePost')
+  @UseGuards(new AuthGuard())
   async updatePost(@Args('updatePostInput') args: any): Promise<Post> {
     const updatedPost = await this.postsService.update(args);
     return updatedPost;
+  }
+
+  @Mutation('deletePost')
+  @UseGuards(new AuthGuard())
+  async deletePost(@Args('id') id): Promise<Post> {
+    return await this.postsService.destroy(id);
   }
 }
