@@ -32,4 +32,11 @@ export class CommentsService {
     comment.post = commentData.postId;
     return await this.commentsRepository.save(comment);
   }
+
+  async destroy(id: string) {
+    const comment = await this.commentsRepository.findOne({
+      where: { id },
+    });
+    await this.commentsRepository.remove(comment);
+  }
 }

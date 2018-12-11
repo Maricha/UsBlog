@@ -2,18 +2,17 @@ type Query {
   post(id: ID!): Post
   getPosts: [Post]
   getPostsByTag(tag: String!): [Post] 
-  updatePost: [Post]
-  deletePost: [Post]
 }
 
 type Mutation {
   createPost(createPostInput: CreatePostInput): Post
   updatePost(updatePostInput: UpdatePostInput): Post
-  deleteComment(id: ID!): Post
+  deletePost(id: ID!): Post
 }
 
 type Subscription {
   postCreated: Post
+  postDeleted: Post
 }
 
 type Post {

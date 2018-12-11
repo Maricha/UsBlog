@@ -35,7 +35,7 @@ class PostEditContainer extends React.Component {
         const post = data.post;
         return (
           <>
-            <h2>Edycja postu</h2>
+            <h2 style={{ marginLeft: '10%' }}>Edycja postu</h2>
             <PostEditForm post={post} />
           </>
         )

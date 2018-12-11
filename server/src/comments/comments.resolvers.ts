@@ -35,6 +35,11 @@ export class CommentsResolver {
     return createdComment;
   }
 
+  @Mutation('deleteComment')
+  async delete(@Args('id') id: any): Promise<any> {
+    return await this.commentsService.destroy(id);
+  }
+
   @Subscription('commentAdded')
   commentAdded() {
     return {

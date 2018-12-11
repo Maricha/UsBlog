@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
   createComment(createCommentInput: CreateCommentInput): Comment
+  deleteComment(id: ID!): Int
 }
 
 type Subscription {

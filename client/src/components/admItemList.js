@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 import AdmItem from './admItem';
 
@@ -26,22 +27,50 @@ const styles = theme => ({
   }
 });
 
-const AdmItemList = React.memo((props) => {
-  const { 
-    classes,
-    posts
-  } = props;
+const buttonStyles = {
+  button: {
+    textDecoration: 'none',
+    color: 'black'
+  },
+  buttonWrapper: {
+    border: '1px solid black',
+    borderRadius: '5px',
+    padding: '10px',
+    marginTop: '20px'
+  }
+}
+
+const AddButton = withStyles(buttonStyles)(React.memo((props) => {
+  const { classes } = props;
   return (
-    <div className={classes.mainStyle}>
-      <Grid container spacing={16} className={classes.cardGrid}>  
-        {posts.map(post => (
-          <Grid item key={post.id} xs={12} md={12}>
-            <AdmItem post={post} />
-          </Grid>
-        ))} 
-      </Grid>
+    <div className={classes.buttonWrapper}>
+      <Link to='/admin/post/create' className={classes.button}>Dodaj post</Link>
     </div>
   )
-});
+}));
+
+class AdmItemList extends React.PureComponent {
+  componentDidMount() {
+    this.props.subscribeToMore();
+  }
+  render() {
+    const { 
+    classes,
+    posts
+  } = this.props;
+    return (
+      <div className={classes.mainStyle}>
+        <Grid container spacing={16} className={classes.cardGrid}>  
+          <AddButton />
+          {posts.map(post => (
+            <Grid item key={post.id} xs={12} md={12}>
+              <AdmItem post={post} />
+            </Grid>
+          ))} 
+        </Grid>
+      </div>
+    )
+  }
+}
 
 export default withStyles(styles)(AdmItemList);

@@ -77,6 +77,7 @@ export class PostsService {
   async destroy(id: string) {
     const post = await this.postsRepository.findOne({
       where: { id },
+      relations: ['comments'],
     });
     await this.postsRepository.remove(post);
     return post;

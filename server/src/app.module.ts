@@ -22,7 +22,7 @@ import { ContactModule } from './contact/contact.module';
       debug: true,
       tracing: true,
       installSubscriptionHandlers: true,
-      context: ({ req }) => ({ headers: req.headers }),
+      context: ({ req }) => ({ headers: req ? req.headers : '' }),
     }),
     UsersModule,
     PostsModule,

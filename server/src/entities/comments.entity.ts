@@ -20,7 +20,7 @@ export class Comment {
     @Column()
     content: string;
 
-    @ManyToOne(type => Post, post => post.comments)
+    @ManyToOne(type => Post, post => post.comments, { cascade: true, onDelete: 'CASCADE' })
     post: Post;
 
     @CreateDateColumn({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
