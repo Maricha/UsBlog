@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comment Component renders correctly 1`] = `
+<div
+  className="MuiGrid-container-5 MuiGrid-direction-xs-column-8 Component-commentWrapper-4"
+>
+  <div
+    className="MuiGrid-item-6 MuiGrid-grid-xs-12-45 MuiGrid-grid-md-true-61"
+  >
+    <div
+      className="Component-commentAuthor-2"
+    >
+      test
+    </div>
+  </div>
+  <div
+    className="MuiGrid-item-6 MuiGrid-grid-xs-12-45 MuiGrid-grid-md-true-61"
+  >
+    <div
+      className="Component-commentContent-3"
+    >
+      conent
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdmItem Component renders correctly 1`] = `
+<div
+  className="MuiGrid-container-5 Component-itemWrapper-1"
+>
+  <div
+    className="MuiGrid-item-6 MuiGrid-grid-xs-8-41 MuiGrid-grid-md-10-71"
+  >
+    <a
+      className="Component-itemLink-2"
+      href="/admin/post/1/edit"
+      onClick={[Function]}
+    >
+      <p>
+        1
+         
+        title
+      </p>
+    </a>
+  </div>
+  <div
+    className="MuiGrid-item-6 MuiGrid-grid-xs-2-35 MuiGrid-grid-md-1-62"
+  >
+    <div
+      className="DeleteButton-wrapper-103"
+    >
+      <button
+        className="DeleteButton-buttonWrapper-102"
+        onClick={[Function]}
+      >
+        X
+      </button>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-item-6 MuiGrid-grid-xs-2-35 MuiGrid-grid-md-1-62 Component-editWrapper-3"
+  >
+    <a
+      className="Component-editButton-4"
+      href="/admin/post/1/edit"
+      onClick={[Function]}
+    >
+      Edycja
+    </a>
+  </div>
+</div>
+`;
