@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Switch, BrowserRouter as Router } from 'react-router-dom'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 
 import HomeContainer from './containers/home.container';
 import CategoryContainer from './containers/category.container';
@@ -15,6 +17,12 @@ import {
 
 import BlogRoute from './common/blogRoute';
 import AdminRoute from './common/adminRoute';
+
+
+library.add(
+  fab,
+)
+
 
 class App extends Component {
   render() {

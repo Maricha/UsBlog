@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Component renders correctly 1`] = `
+<footer
+  className="Component-footer-1"
+>
+  <div
+    className="Component-content-3"
+  >
+    <h6
+      className="MuiTypography-root-6 MuiTypography-h6-23 MuiTypography-gutterBottom-33 MuiTypography-alignCenter-29"
+    >
+      Marcin Starmach
+    </h6>
+    <p
+      className="MuiTypography-root-6 MuiTypography-subtitle1-24 MuiTypography-colorTextSecondary-39 MuiTypography-alignCenter-29"
+    >
+      Blog
+    </p>
+  </div>
+  <div
+    className="Component-social-2"
+  >
+    <div
+      className="Component-socialIcon-4"
+    />
+    <div
+      className="Component-socialIcon-4"
+    />
+  </div>
+</footer>
+`;

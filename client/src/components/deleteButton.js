@@ -34,7 +34,6 @@ const POST_MUTATION = gql`
 class DeleteButton extends PureComponent {
   render() {
     const { id, classes } = this.props;
-    console.log(this.props);
     return (
       <div className={classes.wrapper}>
         <Mutation mutation={POST_MUTATION} variables={{ id }}>

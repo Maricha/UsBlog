@@ -30,53 +30,56 @@ const ContactForm = ({
   isSubmitting
 }) => {
   return (
-    <Form className={classes.formWrapper}>
-      <Grid  
-        container
-        direction="row"
-        spacing={16}
-      >
-        <Grid item xs={12} md={12}>
-          <Field 
-            name="name"
-            label="Imie i nazwisko"
-            value={values.name}
-            component={TextField} />
+    <>
+      <h2>Formularz kontaktowy</h2>
+      <Form className={classes.formWrapper}>
+        <Grid  
+          container
+          direction="row"
+          spacing={16}
+        >
+          <Grid item xs={12} md={12}>
+            <Field 
+              name="name"
+              label="Imie i nazwisko"
+              value={values.name}
+              component={TextField} />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <Field 
+              name="title"
+              label="Tytuł"
+              value={values.title}
+              component={TextField} />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <Field
+              type="email"
+              name="email" 
+              label="Email"
+              component={TextField}
+              value={values.email}
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <Field 
+              name="content" 
+              label="Tresc"
+              component={TextField}
+              value={values.content}
+              multiline
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <div>
+              <Button type="submit" variant="outlined" className={classes.button}>
+                {isSubmitting ? 'Wysyłam...' : 'Zatwierdz'}
+              </Button>
+            </div>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={12}>
-          <Field 
-            name="title"
-            label="Tytuł"
-            value={values.title}
-            component={TextField} />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <Field
-            type="email"
-            name="email" 
-            label="Email"
-            component={TextField}
-            value={values.email}
-          />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <Field 
-            name="content" 
-            label="Tresc"
-            component={TextField}
-            value={values.content}
-            multiline
-          />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <div>
-            <Button type="submit" variant="outlined" className={classes.button}>
-              {isSubmitting ? 'Wysyłam...' : 'Zatwierdz'}
-            </Button>
-          </div>
-        </Grid>
-      </Grid>
-    </Form>
+      </Form>
+    </>
   )
 };
 
