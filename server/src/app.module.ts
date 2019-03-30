@@ -13,6 +13,7 @@ import { PostsModule } from './posts/posts.module';
 import { TagsModule } from './tags/tags.module';
 import { CommentsModule } from './comments/comments.module';
 import { ContactModule } from './contact/contact.module';
+import { PdfModule } from './pdf/pdf.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ContactModule } from './contact/contact.module';
     ContactModule,
     MailerModule.forRoot(),
     ConfigModule.load(),
+    PdfModule,
   ],
   controllers: [AppController],
   providers: [
