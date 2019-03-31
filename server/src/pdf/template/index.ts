@@ -1,9 +1,17 @@
-export const pdfTemplate = () => {
-  const name = 'test';
-  const price1 = '23';
-  const price2 = '50';
-  const receiptId = '2';
+import moment from 'moment';
+
+export const pdfTemplate = (data) => {
   const today = new Date();
+  let posts = '';
+  data.map((item) => {
+    const template = `<tr class="item">
+    <td>${item.id}</td>
+    <td>${item.title}</td>
+    <td>${item.comments}</td>
+    <td>${moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss')}</td>
+   </tr>`;
+    posts += template;
+  });
   return `
     <!doctype html>
     <html>
@@ -90,44 +98,24 @@ export const pdfTemplate = () => {
                    <td colspan="2">
                       <table>
                          <tr>
-                            <td class="title"><img src="https://i2.wp.com/cleverlogos.co/wp-content/uploads/2018/05/reciepthound_1.jpg?fit=800%2C600&ssl=1"
+                            <td class="title"><img src="https://ongeo.pl/resources/images/landing/jak_pobrac_raport_2.svg"
                                style="width:100%; max-width:156px;"></td>
                             <td>
-                               Datum: ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
-                            </td>
-                         </tr>
-                      </table>
-                   </td>
-                </tr>
-                <tr class="information">
-                   <td colspan="2">
-                      <table>
-                         <tr>
-                            <td>
-                               Customer name: ${name}
-                            </td>
-                            <td>
-                               Receipt number: ${receiptId}
+                               Data: ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
                             </td>
                          </tr>
                       </table>
                    </td>
                 </tr>
                 <tr class="heading">
-                   <td>Bought items:</td>
-                   <td>Price</td>
+                  <td>Id</td>
+                  <td>Tytul</td>
+                  <td>Ilosc komenatrzy</td>
+                  <td>Data utworzenia</td>
                 </tr>
-                <tr class="item">
-                   <td>First item:</td>
-                   <td>${price1}$</td>
-                </tr>
-                <tr class="item">
-                   <td>Second item:</td>
-                   <td>${price2}$</td>
-                </tr>
+               ${posts}
              </table>
              <br />
-             <h1 class="justify-center">Total price: ${parseInt(price1) + parseInt(price2)}$</h1>
           </div>
        </body>
     </html>
