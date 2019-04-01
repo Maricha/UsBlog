@@ -33,7 +33,6 @@ const AdmPostsListContainer = () => {
     {({ loading, error, data, subscribeToMore, ...rest }) => {
       if (loading) return <LoadingSpinner />
       if (error) return <div>Error</div>
-      console.log('reszzta', rest);
       const more = () => subscribeToMore({
         document: DELETE_POST_SUBSCRIPTION,
         updateQuery: (prev, { subscriptionData }) => {

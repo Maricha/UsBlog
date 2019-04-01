@@ -43,9 +43,21 @@ const buttonStyles = {
 const AddButton = withStyles(buttonStyles)(React.memo((props) => {
   const { classes } = props;
   return (
-    <div className={classes.buttonWrapper}>
-      <Link to='/admin/post/create' className={classes.button}>Dodaj post</Link>
-    </div>
+    <Grid
+      container
+      spacing={24}
+    >
+    <Grid item>
+      <div className={classes.buttonWrapper}>
+        <Link to='/admin/post/create' className={classes.button}>Dodaj post</Link>
+      </div>
+    </Grid>
+    <Grid item>
+      <div className={classes.buttonWrapper}>
+        <span className={classes.button}>Generuj PDF</span>
+      </div>
+    </Grid>
+    </Grid>
   )
 }));
 

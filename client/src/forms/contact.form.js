@@ -3,6 +3,7 @@ import { Form, Field, withFormik } from "formik";
 import { TextField } from "material-ui-formik-components";
 import * as Yup from 'yup';
 import gql from 'graphql-tag';
+import { toast } from 'react-toastify';
 import { compose, graphql } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Grid } from '@material-ui/core';
@@ -104,6 +105,7 @@ export default compose(
         },
       });
       resetForm();
+      toast.info("Wysłano wiadomość");
     },
   }),
 )(ContactForm);

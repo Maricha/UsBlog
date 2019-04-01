@@ -5,6 +5,7 @@ import { convertToHTML } from 'draft-convert';
 import * as Yup from 'yup';
 import { EditorState } from 'draft-js';
 import gql from 'graphql-tag';
+import { toast } from 'react-toastify';
 
 import PostForm from './post.form';
 
@@ -54,7 +55,7 @@ const EnhancedCreatePostForm = compose(
       subtitle: Yup.string().required(),
       tags: Yup.array().required(),
     }),
-    handleSubmit: async (values, { props: { data, mutate }, resetForm }) => {
+    handleSubmit: async (values, { props: { data, mutate, history }, resetForm }) => {
       const content = await convertToHTML(values.editorState.getCurrentContent());
       const tagsId = await values.tags.map(tag => Number(tag.id));
       await mutate({
@@ -66,7 +67,9 @@ const EnhancedCreatePostForm = compose(
           image: values.image,
         },
       });
-      resetForm();
+      history.push(`/admin`)
+      toast.success("Dodano post pomyślnie");
+      //resetForm();
     },
     displayName: 'PostCreateForm',
   })

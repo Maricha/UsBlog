@@ -29,6 +29,7 @@
     "react-select": "^2.1.1",
     "react-spinners": "^0.4.7",
     "react-test-renderer": "^16.7.0",
+    "react-toastify": "^5.0.0-rc.5",
     "styled-components": "^4.0.2",
     "subscriptions-transport-ws": "^0.9.15",
     "yup": "^0.26.6"

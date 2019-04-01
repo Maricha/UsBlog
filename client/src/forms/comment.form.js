@@ -4,6 +4,7 @@ import { TextField } from "material-ui-formik-components";
 import * as Yup from 'yup';
 import Recaptcha from 'react-recaptcha';
 import gql from 'graphql-tag';
+import { toast } from 'react-toastify';
 import { compose, graphql } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
@@ -95,6 +96,7 @@ export default compose(
       });
       resetRecaptcha();
       resetForm();
+      toast.info("Dodano komentarz");
     },
   }),
 )(CommentForm);

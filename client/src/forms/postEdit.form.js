@@ -6,6 +6,7 @@ import { convertToHTML, convertFromHTML } from 'draft-convert';
 import * as Yup from 'yup';
 import { EditorState } from 'draft-js';
 import gql from 'graphql-tag';
+import { toast } from 'react-toastify';
 
 import PostForm from './post.form';
 
@@ -68,6 +69,7 @@ const EnhancedEditPostForm = compose(
           },
         })
         history.push(`/admin`)
+        toast.success("Edycja powiodła się")
       } catch (e) {
         const errors = e.graphQLErrors.map(error => error.message)
         console.log(errors)

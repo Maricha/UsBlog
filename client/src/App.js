@@ -3,6 +3,8 @@ import './App.css';
 import { Switch, BrowserRouter as Router } from 'react-router-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import HomeContainer from './containers/home.container';
 import CategoryContainer from './containers/category.container';
@@ -23,6 +25,10 @@ library.add(
   fab,
 )
 
+toast.configure({
+  autoClose: 3000,
+  draggable: false,
+})
 
 class App extends Component {
   render() {

@@ -2,6 +2,7 @@ import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import { Button, Grid, TextField } from '@material-ui/core';
 import { compose, graphql } from 'react-apollo';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import gql from 'graphql-tag';
 import { withStyles } from '@material-ui/core/styles';
@@ -99,6 +100,7 @@ const EnhancedCreatePostForm = compose(
         });
         const { data: { login: { token } } } = loginResponse;
         await confirm(token);
+        toast.success("Zalogowano pomyślnie");
         history.push(`/admin`)
       } catch (e) {
         const errors = e.graphQLErrors.map(error => error.message)
